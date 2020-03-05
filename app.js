@@ -118,3 +118,42 @@ let items = document.getElementById('list-of-posts')
   })
 
 //Code for address-form-launchbook goes here
+
+let addressForm = document.mailingAddressForm
+
+addressForm.addEventListener('submit', (event) => {
+
+  let formLabels = addressForm.getElementsByTagName("label")
+  let missingFields = 0
+  
+  let addressFormFields = [
+    addressForm.firstName.value,
+    addressForm.lastName.value,
+    addressForm.address.value,
+    addressForm.city.value,
+    addressForm.state.value,
+    addressForm.zipCode.value,
+    addressForm.phoneNumber.value,
+    addressForm.email.value
+  ]
+
+  addressFormFields.forEach((field, index) => {
+
+    if (field == "") {
+      formLabels[index].classList.add("error")
+      missingFields += 1
+    } else {
+      formLabels[index].classList.remove("error")
+    }
+  });
+
+  if (missingFields > 0) {
+    event.preventDefault()
+    formTitle = addressForm.getElementsByTagName('h3')[0]
+    formTitle.style.color = "red"
+    formTitle.innerText = "Mailing Address (red fields are required)"
+    alert("Please fill out all required fields!")
+  } else {
+    alert("Thanks for signing up!")
+  }
+});
